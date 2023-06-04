@@ -2,14 +2,15 @@
   "name": "nodebasic",
   "version": "1.0.0",
   "description": "\"node testing project)",
-  "main": "basic.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "kiran manandhar",
   "license": "ISC",
   "dependencies": {
-    "expess": "^0.0.1-security"
+    "express": "^4.18.2"
   }
 }
