@@ -9,13 +9,13 @@ GET http://localhost:8000/api/v1/task
 POST http://localhost:8000/api/v1/task
 Content-Type: application/json
 
-// this for git
+
 {
-    "task": "sf tv",
-    "hr": 22,
-    "type": "entry"
-   
+  "task":"Codind  televison",
+  "hr":28,
+  "type":"neutral"
 }
+
 
 
 
@@ -32,10 +32,6 @@ Content-Type: application/json
   }
 
 ### delete task from  api 
-Delete http://localhost:8000/api/v1/task
-Content-Type: application/json
+Delete http://localhost:8000/api/v1/task/648510747a2bd04ce3aeebe0
 
-{
-    "_id":"002",
-    "_id":"001"
-}
+

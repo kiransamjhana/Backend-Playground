@@ -15,3 +15,7 @@ export const readTasks = () => {
 export const switchTask = (_id, type) => {
   return TaskSchema.findByIdAndUpdate(_id, { type });
 };
+
+export const deleteTaskById = (_id) => {
+  return TaskSchema.findByIdAndDelete(_id);
+};

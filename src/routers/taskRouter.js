@@ -1,5 +1,5 @@
 import express from "express";
-import { createTask, readTasks } from "../model/TaskModel.js";
+import { createTask, deleteTaskById, readTasks } from "../model/TaskModel.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -49,21 +49,27 @@ router.patch("/", async (req, res) => {
   } catch (error) {}
 });
 
-router.delete("/", (req, res) => {
+router.delete("/:_id", async (req, res) => {
+  const { _id } = req.params;
+  const result = await deleteTaskById(_id);
   try {
-    console.log(id);
-
-    const { _id } = req.body;
+    result?._id
+      ? res.json({
+          status: "success",
+          message: "The task has been deleted successfully",
+        })
+      : res.json({
+          status: "error",
+          message: "Unable to delete the task ",
+        });
+  } catch (error) {
+    console.log(error);
 
     res.json({
-      status: "success",
-      message: "Task deleted successfully",
+      status: "error",
+      message: "Error deleting the task",
     });
-  } catch (error) {}
-  res.json({
-    status: "success",
-    message: "Task deleted successfully",
-  });
+  }
 });
 
 export default router;
