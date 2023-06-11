@@ -4,6 +4,9 @@ const app = express();
 
 const PORT = 8000;
 
+import { mongoConnect } from "./src/config/mongoDb.js";
+mongoConnect();
+
 // middleware
 app.use(express.json());
 

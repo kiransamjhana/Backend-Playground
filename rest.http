@@ -8,12 +8,13 @@ GET http://localhost:8000/api/v1/task
 ### send task to  api 
 POST http://localhost:8000/api/v1/task
 Content-Type: application/json
+
 // this for git
 {
     "task": "sf tv",
     "hr": 22,
-    "type": "entry",
-    "_id": "dds"
+    "type": "entry"
+   
 }
 
 
