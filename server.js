@@ -3,7 +3,7 @@ import cors from "cors";
 const app = express();
 
 app.use(cors());
-const PORT = 8000;
+const PORT = 8080;
 
 import { mongoConnect } from "./src/config/mongoDb.js";
 mongoConnect();
