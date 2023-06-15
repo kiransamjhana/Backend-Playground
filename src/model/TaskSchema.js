@@ -12,7 +12,7 @@ const taskSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    default: "entry",
+    default: "bad",
   },
 });
 
