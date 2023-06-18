@@ -1,14 +1,20 @@
 import express from "express";
-import { createTask, deleteTaskById, readTasks } from "../model/TaskModel.js";
+import {
+  createTask,
+  deleteTaskById,
+  readTasks,
+  switchTask,
+  deleteManyTasks,
+} from "../model/TaskModel.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  //we need to get data form db
+  //get data from the db
   const taskList = await readTasks();
+
   res.json({
     status: "success",
     message: "From Get method",
-    taskList,
   });
 });
 
@@ -20,43 +26,54 @@ router.post("/", async (req, res) => {
       ? res.json({
           status: "success",
           message: "New task has been added successfully",
+          taskList,
         })
       : res.json({
-          status: "success",
+          status: "error",
           message: "unable to add the data",
         });
   } catch (error) {
+    res.json({
+      status: "error",
+      message: error.messasge,
+    });
     console.log(error);
   }
 });
 
 router.patch("/", async (req, res) => {
-  console.log(req.body);
   try {
     const { _id, type } = req.body;
-
-    //update data in DB
+    // update data in db
     const result = await switchTask(_id, type);
+
     result?._id
       ? res.json({
           status: "success",
-          message: "The task has been switeched",
+          message: "The task has been switeched successfully",
         })
       : res.json({
-          status: "success",
-          message: "The task has been switeched",
+          status: "error",
+          message: "The task did not switeched ",
         });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+
+    res.json({
+      status: "error",
+      message: "The task did not switeched ",
+    });
+  }
 });
 
-router.delete("/:_id", async (req, res) => {
-  const { _id } = req.params;
-  const result = await deleteTaskById(_id);
+router.delete("/", async (req, res) => {
   try {
-    result?._id
+    const result = await deleteManyTasks(req.body);
+
+    result?.deletedCount > 0
       ? res.json({
           status: "success",
-          message: "The task has been deleted successfully",
+          message: "The tasks have been deleted successfully",
         })
       : res.json({
           status: "error",
@@ -71,7 +88,5 @@ router.delete("/:_id", async (req, res) => {
     });
   }
 });
-// taskrouter please deletet ths comment this just for testing
-//Thank you for pushing me
 
 export default router;
