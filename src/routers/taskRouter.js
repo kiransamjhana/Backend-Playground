@@ -1,7 +1,6 @@
 import express from "express";
 import {
   createTask,
-  deleteTaskById,
   readTasks,
   switchTask,
   deleteManyTasks,
@@ -15,6 +14,7 @@ router.get("/", async (req, res) => {
   res.json({
     status: "success",
     message: "From Get method",
+    taskList,
   });
 });
 
@@ -26,7 +26,6 @@ router.post("/", async (req, res) => {
       ? res.json({
           status: "success",
           message: "New task has been added successfully",
-          taskList,
         })
       : res.json({
           status: "error",

@@ -12,7 +12,7 @@ const taskSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    default: "bad",
+    default: "entry",
   },
 });
 
@@ -20,5 +20,5 @@ const taskSchema = new mongoose.Schema({
 export default mongoose.model("Task", taskSchema); /// will create a table name tasks
 
 ///queries
-//lets create another file 
-// do it now 
+//lets create another file
+// do it now
