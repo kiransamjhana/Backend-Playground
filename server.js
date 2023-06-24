@@ -1,39 +1,49 @@
-import express from "express";
-import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
+import express from "express";
 const app = express();
-
-const PORT = 8080;
+import cors from "cors";
+const PORT = process.env.PORT || 8002;
 import path from "path";
 
-const _dirname = path.resolve();
-console.log(_dirname);
-import { mongoConnect } from "./src/config/mongoDb.js";
-mongoConnect();
+const __dirname = path.resolve();
 
-// middleware
+// connect mongodb
+import { mongoConnect } from "./src/config/mongoDb.js";
+
+// middlewares
 app.use(express.json());
 app.use(cors());
-app.use(express.static(_dirname + "/build"));
+app.use(express.static(__dirname + "/build"));
 
-//api endpoints
+// API endpoints
 import taskRouter from "./src/routers/taskRouter.js";
+import mongoose from "mongoose";
+
 app.use("/api/v1/task", taskRouter);
 
-app.get("/", (req, res) => {
-  res.json({
-    status: "success",
-    message: "server running as normal",
+app.use("/", (req, res) => {
+  res.sendFile(__dirname + "/index.html");
+});
+
+////////
+
+const dbLink =
+  process.env.NODE_ENV === "production"
+    ? "mongodb://localhost:27017/nottododb"
+    : process.env.MONGO_CLIENT;
+
+mongoose
+  .connect(process.env.MONGO_CLIENT)
+  .then(() => {
+    console.log("mongo conneted");
+    app.listen(PORT, (err) => {
+      err
+        ? console.log(err.message)
+        : console.log(`Server running at http://localhost:${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
   });
-});
-
-// server listening the port
-app.listen(PORT, (error) => {
-  error && console.log(error.message);
-
-  console.log(`
-  server running at http://localhost:${PORT}
-  `);
-});
-// the main file is also working nicely let ha
+// open port for http request to access the server

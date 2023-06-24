@@ -1,6 +1,5 @@
 ### Testing server status
-GET http://localhost:8080/
-
+GET http://localhost:8002/
 
 ### get all the tasks from api 
 GET http://localhost:8080/api/v1/task
